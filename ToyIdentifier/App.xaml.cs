@@ -8,7 +8,11 @@ namespace ToyIdentifier
         {
             InitializeComponent();
 
-            MainPage = new ToyIdentifierPage();
+            MainPage = new NavigationPage(new ToyIdentifierPage())
+            {
+                BarBackgroundColor = Color.FromHex("#000020"),
+                BarTextColor = Color.White
+            };
         }
 
         protected override void OnStart()

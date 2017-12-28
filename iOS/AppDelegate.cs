@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
 using UIKit;
 
 namespace ToyIdentifier.iOS
@@ -15,6 +11,7 @@ namespace ToyIdentifier.iOS
             global::Xamarin.Forms.Forms.Init();
 
             LoadApplication(new App());
+            UIApplication.SharedApplication.StatusBarHidden = false;
 
             return base.FinishedLaunching(app, options);
         }

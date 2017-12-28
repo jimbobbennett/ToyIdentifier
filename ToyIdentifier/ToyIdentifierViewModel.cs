@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Cognitive.CustomVision.Prediction;
+using Microsoft.Cognitive.CustomVision.Prediction.Models;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Plugin.TextToSpeech;
@@ -11,6 +13,9 @@ namespace ToyIdentifier
 {
     public class ToyIdentifierViewModel : ViewModelBase
     {
+        private PredictionEndpoint _endpoint = new PredictionEndpoint { ApiKey = ApiKeys.ApiKey };
+        private const double ProbabilityThreashold = 0.5;
+
         public ToyIdentifierViewModel()
         {
 #pragma warning disable RECS0165 // Asynchronous methods should return a Task instead of void
@@ -21,38 +26,62 @@ namespace ToyIdentifier
         private async Task TakePhoto()
         {
             CanTakePhoto = false;
+            await TakePhotoAndBuildToyMessage();
+            CanTakePhoto = true;
+
+            await CrossTextToSpeech.Current.Speak(ToyNameMessage);
+        }
+
+        private async Task TakePhotoAndBuildToyMessage()
+        {
+            var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions { PhotoSize = PhotoSize.Medium });
+            ToyNameMessage = BuildToyMessage(file);
+            DeletePhoto(file);
+        }
+
+        private string BuildToyMessage(MediaFile file)
+        {
+            var message = "You need to photo a toy";
 
             try
             {
-                var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions { AllowCropping = true });
-
-                if (file == null)
+                if (file != null)
                 {
-                    ToyNameMessage = "";
-                    return;
-                }
-
-                using (var stream = file.GetStream())
-                {
-                    var endpoint = new PredictionEndpoint {ApiKey = ApiKeys.ApiKey};
-                    var result = endpoint.PredictImage(ApiKeys.ProjectId, stream);
-
-                    var toy = result.Predictions.OrderByDescending(p =>p.Probability).First().Tag;
-                    ToyNameMessage = $"Hello {toy}";
-                    await CrossTextToSpeech.Current.Speak(ToyNameMessage);
+                    var mostLikely = GetBestTag(file);
+                    if (mostLikely == null)
+                        message = "I don't know who that is";
+                    else
+                        message = $"Hello {mostLikely.Tag}";
                 }
             }
             catch
             {
-                ToyNameMessage = "";
+                message = "I don't know who that is";
             }
-            finally
+
+            return message;
+        }
+
+        private static void DeletePhoto(MediaFile file)
+        {
+            var path = file?.Path;
+
+            if (!string.IsNullOrEmpty(path) && File.Exists(path))
+                File.Delete(file?.Path);
+        }
+
+        private ImageTagPredictionModel GetBestTag(MediaFile file)
+        {
+            using (var stream = file.GetStream())
             {
-                CanTakePhoto = true;
+                return _endpoint.PredictImage(ApiKeys.ProjectId, stream)
+                                .Predictions
+                                .OrderByDescending(p => p.Probability)
+                                .FirstOrDefault(p => p.Probability > ProbabilityThreashold);
             }
         }
 
-        private string _toyNameMessage = "";
+        private string _toyNameMessage = string.Empty;
         public string ToyNameMessage
         {
             get => _toyNameMessage;
@@ -63,8 +92,14 @@ namespace ToyIdentifier
         public bool CanTakePhoto
         {
             get => _canTakePhoto;
-            set => Set(ref _canTakePhoto, value);
+            set
+            {
+                if (Set(ref _canTakePhoto, value))
+                    RaisePropertyChanged(nameof(ShowSpinner));
+            }
         }
+
+        public bool ShowSpinner => !CanTakePhoto;
 
         public ICommand TakePhotoCommand { get; }
     }

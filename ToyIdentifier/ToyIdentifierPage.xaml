@@ -23,5 +23,16 @@
                 BackgroundColor="Lime" WidthRequest="200" HeightRequest="200"
                 TextColor="Black" FontSize="Large" IsEnabled="{Binding CanTakePhoto}"
                 Command="{Binding TakePhotoCommand}"/>
+
+        <Grid BackgroundColor="#000020" Opacity="0.9" IsVisible="{Binding ShowSpinner}"
+              Grid.RowSpan="3"/>
+
+        <StackLayout Grid.RowSpan="3" Orientation="Vertical" Spacing="20"
+                     HorizontalOptions="Center" VerticalOptions="Center"
+                     IsVisible="{Binding ShowSpinner}">
+            <ActivityIndicator Color="Lime" 
+                               IsRunning="{Binding ShowSpinner}"/>
+            <Label TextColor="Lime" Text="Identifying toy..."/>
+        </StackLayout>
     </Grid>
 </ContentPage>
