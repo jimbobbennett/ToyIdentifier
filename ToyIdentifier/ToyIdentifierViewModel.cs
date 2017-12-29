@@ -13,7 +13,7 @@ namespace ToyIdentifier
 {
     public class ToyIdentifierViewModel : ViewModelBase
     {
-        private PredictionEndpoint _endpoint = new PredictionEndpoint { ApiKey = ApiKeys.ApiKey };
+        private PredictionEndpoint _endpoint = new PredictionEndpoint { ApiKey = ApiKeys.PredictionKey };
         private const double ProbabilityThreashold = 0.5;
 
         public ToyIdentifierViewModel()
@@ -34,7 +34,8 @@ namespace ToyIdentifier
 
         private async Task TakePhotoAndBuildToyMessage()
         {
-            var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions { PhotoSize = PhotoSize.Medium });
+            var options = new StoreCameraMediaOptions { PhotoSize = PhotoSize.Medium };
+            var file = await CrossMedia.Current.TakePhotoAsync(options);
             ToyNameMessage = BuildToyMessage(file);
             DeletePhoto(file);
         }
