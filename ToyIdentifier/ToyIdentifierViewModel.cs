@@ -14,7 +14,7 @@ namespace ToyIdentifier
     public class ToyIdentifierViewModel : ViewModelBase
     {
         private PredictionEndpoint _endpoint = new PredictionEndpoint { ApiKey = ApiKeys.PredictionKey };
-        private const double ProbabilityThreashold = 0.5;
+        private const double ProbabilityThreshold = 0.5;
 
         public ToyIdentifierViewModel()
         {
@@ -78,7 +78,7 @@ namespace ToyIdentifier
                 return _endpoint.PredictImage(ApiKeys.ProjectId, stream)
                                 .Predictions
                                 .OrderByDescending(p => p.Probability)
-                                .FirstOrDefault(p => p.Probability > ProbabilityThreashold);
+                                .FirstOrDefault(p => p.Probability > ProbabilityThreshold);
             }
         }
 
