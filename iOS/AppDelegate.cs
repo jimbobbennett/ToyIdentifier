@@ -1,19 +1,22 @@
 ﻿using Foundation;
 using UIKit;
+using Xamarin.Forms;
 
 namespace ToyIdentifier.iOS
 {
     [Register("AppDelegate")]
-    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
+    public partial class AppDelegate : Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
-        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+        public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
-            global::Xamarin.Forms.Forms.Init();
+            Forms.Init();
 
             LoadApplication(new App());
             UIApplication.SharedApplication.StatusBarHidden = false;
 
-            return base.FinishedLaunching(app, options);
+            DependencyService.Get<IImageClassifier>().Init("ToyIdentifier");
+
+            return base.FinishedLaunching(uiApplication, launchOptions);
         }
     }
 }

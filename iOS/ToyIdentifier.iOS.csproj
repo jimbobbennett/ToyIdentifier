@@ -115,14 +115,8 @@
     <Reference Include="Plugin.Permissions">
       <HintPath>..\packages\Plugin.Permissions.2.1.0\lib\Xamarin.iOS10\Plugin.Permissions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cognitive.CustomVision.Prediction">
-      <HintPath>..\packages\Microsoft.Cognitive.CustomVision.Prediction.1.2.0\lib\dotnet\Microsoft.Cognitive.CustomVision.Prediction.dll</HintPath>
-    </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="Microsoft.Rest.ClientRuntime">
-      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.10\lib\netstandard1.4\Microsoft.Rest.ClientRuntime.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
@@ -152,6 +146,15 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="ImageClassifier.cs" />
+    <Compile Include="ImageExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ToyIdentifier.mlmodelc\coremldata.bin" />
+    <BundleResource Include="Resources\ToyIdentifier.mlmodelc\model.espresso.net" />
+    <BundleResource Include="Resources\ToyIdentifier.mlmodelc\model.espresso.shape" />
+    <BundleResource Include="Resources\ToyIdentifier.mlmodelc\model.espresso.weights" />
+    <BundleResource Include="Resources\ToyIdentifier.mlmodelc\model\coremldata.bin" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets')" />

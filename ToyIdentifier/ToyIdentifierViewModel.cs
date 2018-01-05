@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Microsoft.Cognitive.CustomVision.Prediction;
-using Microsoft.Cognitive.CustomVision.Prediction.Models;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Plugin.TextToSpeech;
@@ -13,7 +11,6 @@ namespace ToyIdentifier
 {
     public class ToyIdentifierViewModel : ViewModelBase
     {
-        private PredictionEndpoint _endpoint = new PredictionEndpoint { ApiKey = ApiKeys.PredictionKey };
         private const double ProbabilityThreshold = 0.5;
 
         public ToyIdentifierViewModel()
@@ -36,11 +33,11 @@ namespace ToyIdentifier
         {
             var options = new StoreCameraMediaOptions { PhotoSize = PhotoSize.Medium };
             var file = await CrossMedia.Current.TakePhotoAsync(options);
-            ToyNameMessage = BuildToyMessage(file);
+            ToyNameMessage = await BuildToyMessage(file);
             DeletePhoto(file);
         }
 
-        private string BuildToyMessage(MediaFile file)
+        private async Task<string> BuildToyMessage(MediaFile file)
         {
             var message = "You need to photo a toy";
 
@@ -48,11 +45,11 @@ namespace ToyIdentifier
             {
                 if (file != null)
                 {
-                    var mostLikely = GetBestTag(file);
+                    var mostLikely = await GetBestTag(file);
                     if (mostLikely == null)
                         message = "I don't know who that is";
                     else
-                        message = $"Hello {mostLikely.Tag}";
+                        message = $"Hello {mostLikely}";
                 }
             }
             catch
@@ -71,14 +68,16 @@ namespace ToyIdentifier
                 File.Delete(file?.Path);
         }
 
-        private ImageTagPredictionModel GetBestTag(MediaFile file)
+        private async Task<string> GetBestTag(MediaFile file)
         {
             using (var stream = file.GetStream())
             {
-                return _endpoint.PredictImage(ApiKeys.ProjectId, stream)
-                                .Predictions
-                                .OrderByDescending(p => p.Probability)
-                                .FirstOrDefault(p => p.Probability > ProbabilityThreshold);
+                var tags = await DependencyService.Get<IImageClassifier>().ClassifyImage(stream);
+                if (!tags.Any()) return null;
+
+                return tags.Where(t => t.Probability > ProbabilityThreshold)
+                           .OrderByDescending(t => t.Probability)
+                           .First().Tag;
             }
         }
 
