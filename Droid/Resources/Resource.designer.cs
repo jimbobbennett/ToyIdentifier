@@ -26,7 +26,7 @@ namespace ToyIdentifier.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xam.Plugin.OnDeviceCustomVision.Resource.String.library_name = global::ToyIdentifier.Droid.Resource.String.library_name;
+			global::Xam.Plugins.OnDeviceCustomVision.Resource.String.library_name = global::ToyIdentifier.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::ToyIdentifier.Droid.Resource.Attribute.actionBarSize;
 		}
 		
