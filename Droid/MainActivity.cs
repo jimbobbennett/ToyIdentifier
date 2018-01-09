@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using Plugin.Permissions;
+using Xam.Plugins.OnDeviceCustomVision;
 using Xamarin.Forms;
 
 namespace ToyIdentifier.Droid
@@ -20,7 +21,7 @@ namespace ToyIdentifier.Droid
 
             LoadApplication(new App());
 
-            DependencyService.Get<IImageClassifier>().Init("model.pb");
+            CrossImageClassifier.Current.Init("model.pb");
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)

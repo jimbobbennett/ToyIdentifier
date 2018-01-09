@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using UIKit;
+using Xam.Plugins.OnDeviceCustomVision;
 using Xamarin.Forms;
 
 namespace ToyIdentifier.iOS
@@ -14,7 +15,7 @@ namespace ToyIdentifier.iOS
             LoadApplication(new App());
             UIApplication.SharedApplication.StatusBarHidden = false;
 
-            DependencyService.Get<IImageClassifier>().Init("ToyIdentifier");
+            CrossImageClassifier.Current.Init("ToyIdentifier");
 
             return base.FinishedLaunching(uiApplication, launchOptions);
         }

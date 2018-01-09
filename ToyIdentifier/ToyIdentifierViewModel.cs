@@ -1,10 +1,13 @@
-﻿using System.IO;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Plugin.TextToSpeech;
+using Xam.Plugins.OnDeviceCustomVision;
 using Xamarin.Forms;
 
 namespace ToyIdentifier
@@ -52,8 +55,9 @@ namespace ToyIdentifier
                         message = $"Hello {mostLikely}";
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine($"Exception is: {ex.Message}");
                 message = "I don't know who that is";
             }
 
@@ -72,7 +76,7 @@ namespace ToyIdentifier
         {
             using (var stream = file.GetStream())
             {
-                var tags = await DependencyService.Get<IImageClassifier>().ClassifyImage(stream);
+                var tags = await CrossImageClassifier.Current.ClassifyImage(stream);
                 if (!tags.Any()) return null;
 
                 return tags.Where(t => t.Probability > ProbabilityThreshold)
