@@ -40,3 +40,4 @@ Thumbs.db
 *.dotCover
 .droidres/.toyidentifier.droidres.db
 *.db
+.vs/ToyIdentifier/xs/UserPrefs.xml
