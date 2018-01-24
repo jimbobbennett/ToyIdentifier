@@ -122,7 +122,7 @@
       <HintPath>..\packages\Xam.Plugin.Media.3.1.2\lib\Xamarin.iOS10\Plugin.Media.dll</HintPath>
     </Reference>
     <Reference Include="Xam.Plugins.OnDeviceCustomVision">
-      <HintPath>..\packages\Xam.Plugins.OnDeviceCustomVision.0.1.1-alpha\lib\Xamarin.iOS10\Xam.Plugins.OnDeviceCustomVision.dll</HintPath>
+      <HintPath>..\packages\Xam.Plugins.OnDeviceCustomVision.0.1.5-alpha\lib\Xamarin.iOS10\Xam.Plugins.OnDeviceCustomVision.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -151,11 +151,7 @@
     <Compile Include="AppDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ToyIdentifier.mlmodelc\coremldata.bin" />
-    <BundleResource Include="Resources\ToyIdentifier.mlmodelc\model.espresso.net" />
-    <BundleResource Include="Resources\ToyIdentifier.mlmodelc\model.espresso.shape" />
-    <BundleResource Include="Resources\ToyIdentifier.mlmodelc\model.espresso.weights" />
-    <BundleResource Include="Resources\ToyIdentifier.mlmodelc\model\coremldata.bin" />
+    <BundleResource Include="Resources\toyId.mlmodel" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets')" />

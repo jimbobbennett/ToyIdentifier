@@ -15,7 +15,7 @@ namespace ToyIdentifier.iOS
             LoadApplication(new App());
             UIApplication.SharedApplication.StatusBarHidden = false;
 
-            CrossImageClassifier.Current.Init("ToyIdentifier");
+            CrossImageClassifier.Current.Init("toyId", ModelType.General);
 
             return base.FinishedLaunching(uiApplication, launchOptions);
         }

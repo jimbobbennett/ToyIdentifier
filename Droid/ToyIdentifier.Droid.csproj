@@ -143,10 +143,10 @@
       <HintPath>..\packages\Xam.Plugin.Media.3.1.2\lib\MonoAndroid10\Plugin.Media.dll</HintPath>
     </Reference>
     <Reference Include="TensorFlowXamarin">
-      <HintPath>..\packages\Xam.Plugins.OnDeviceCustomVision.0.1.1-alpha\lib\MonoAndroid10\TensorFlowXamarin.dll</HintPath>
+      <HintPath>..\packages\Xam.Plugins.OnDeviceCustomVision.0.1.5-alpha\lib\MonoAndroid10\TensorFlowXamarin.dll</HintPath>
     </Reference>
     <Reference Include="Xam.Plugins.OnDeviceCustomVision">
-      <HintPath>..\packages\Xam.Plugins.OnDeviceCustomVision.0.1.1-alpha\lib\MonoAndroid10\Xam.Plugins.OnDeviceCustomVision.dll</HintPath>
+      <HintPath>..\packages\Xam.Plugins.OnDeviceCustomVision.0.1.5-alpha\lib\MonoAndroid10\Xam.Plugins.OnDeviceCustomVision.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

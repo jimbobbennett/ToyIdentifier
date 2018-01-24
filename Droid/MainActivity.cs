@@ -21,7 +21,7 @@ namespace ToyIdentifier.Droid
 
             LoadApplication(new App());
 
-            CrossImageClassifier.Current.Init("model.pb");
+            CrossImageClassifier.Current.Init("model.pb", ModelType.General);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
