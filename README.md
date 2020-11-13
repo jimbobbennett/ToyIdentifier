@@ -10,7 +10,7 @@ Before you can use this app, you will need to create a custom vision project:
 
 * Head to [https://customvision.ai](https://customvision.ai/?WT.mc_id=toyidentifier-blog-jabenn)
 * Sign in with a Microsoft account
-* Create a new project, upload some images and tag them as described [here](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/getting-started-build-a-classifier?WT.mc_id=toyidentifier-blog-jabenn)
+* Create a new project, upload some images and tag them as described [here](https://docs.microsoft.com/azure/cognitive-services/custom-vision-service/getting-started-build-a-classifier?WT.mc_id=academic-0000-jabenn)
 
 You can read more on creating this project at https://www.jimbobbennett.io/identifying-my-daughters-toys-using-ai/.
 
@@ -24,6 +24,6 @@ You can read more on this code at https://www.jimbobbennett.io/identifying-my-da
 
 ### OnDeviceModel
 
-The `OnDeviceModel` branch contains a version of the app that uses a model downloaded from the custom vision service, both as a CoreML model on iOS and a TensorFlow model on Android. To use your models with the app, export them from the Performance tab as described [here](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/export-your-model?WT.mc_id=toyidentifier-blog-jabenn).
+The `OnDeviceModel` branch contains a version of the app that uses a model downloaded from the custom vision service, both as a CoreML model on iOS and a TensorFlow model on Android. To use your models with the app, export them from the Performance tab as described [here](https://docs.microsoft.com/azure/cognitive-services/custom-vision-service/export-your-model?WT.mc_id=academic-0000-jabenn).
 
 You can read more on using this model from CoreML at https://www.jimbobbennett.io/identifying-my-daughters-toys-using-ai-part-3-offline-ios/.
